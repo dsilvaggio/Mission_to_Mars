@@ -61,6 +61,7 @@
         </div>
 
         {% for hemisphere in mars.hemisphere_image %}
+        <div class="col-md-6">
           <div class="thumbnail">
             <img src="{{hemisphere.Image_url | default('static/images/error.png', true)}}" alt="...">
             <div class="caption">

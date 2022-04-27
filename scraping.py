@@ -1,5 +1,6 @@
 # Import Splinter and BeautifulSoup
 from dataclasses import dataclass
+from tkinter import BROWSE
 from splinter import Browser
 from bs4 import BeautifulSoup as soup
 from webdriver_manager.chrome import ChromeDriverManager
@@ -12,13 +13,15 @@ def scrape_all():
     browser = Browser('chrome', **executable_path, headless=True)
    
     news_title, news_paragraph = mars_news(browser)
+    hemisphere_image_urls = hemi_data(browser)
 
     # Run all scraping functions and store results in dictionary
     data = {
         "news_title": news_title,
         "news_paragraph": news_paragraph,
         "facts": mars_facts(),
-        "last_modified": dt.datetime.now()
+        "last_modified": dt.datetime.now(),
+        "hemisphere_image": hemisphere_image_urls
     }
     
     #Stop webdriver and return data
@@ -83,6 +86,30 @@ def mars_facts():
     df.set_index('description', inplace=True)
     
     return df.to_html(classes="table table-striped")
+
+def hemi_data(browser):
+    url = 'https://marshemispheres.com/'
+    browser.visit(url)
+    hemisphere_image_urls = []
+    
+    for post in range(4): 
+        scraped_information = {}
+    
+        browser.find_by_css('a.itemLink.product-item h3')[post].click()
+    
+        # Get Image URL
+        image = browser.links.find_by_text('Sample')
+        scraped_information["Image_url"] = image['href']
+    
+        # Get Hemisphere Title
+        title = browser.find_by_css('h2').text
+        scraped_information["title"] = title
+    
+    
+        hemisphere_image_urls.append(scraped_information)
+    
+        browser.back()
+    return hemisphere_image_urls
 
 if __name__ == "__main__":
     #If running as script, print scraped data
