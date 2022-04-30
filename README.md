@@ -7,4 +7,6 @@
   I first downloaded my above scraping script from Jupyter Notebook into a python file. I created a scarping.py file inside the same directory and refactored the above scraping script to create 4 funtions that scraped the above websites for the article data, facts, and images. I then added a scrape_all() function that runs all of the scraping functions and stores the results for each into a dictionary.
     I then created a flask app titled app.py. This app connects to a Mongo database, sets up our main HTML page, and scrapes new data using the above scraping.py code.
     Lastly, I created an HTML file and updated the code to display a title header and the data that I had scraped on one webpage. I implemented a button that performs our scrape and updates out webpage with any new/updated data anytime it is pressed. A screenshot of the webpage can be seen below:
-![This is an image](
+    
+![This is an image](https://github.com/dsilvaggio/Mission_to_Mars/blob/main/Resources/Screen%20Shot%202022-04-30%20at%203.53.36%20PM.png)
+![This is an image](https://github.com/dsilvaggio/Mission_to_Mars/blob/main/Resources/Screen%20Shot%202022-04-30%20at%203.53.47%20PM.png)
